@@ -1,7 +1,6 @@
 import React, { useState } from "react";
-import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
-import axios from "axios";
+import { axiosInstance } from "../config";
 import { useLocation, useNavigate } from "react-router-dom";
 import moment from "moment";
 import { useContext } from "react";
@@ -28,7 +27,7 @@ const Polls = () => {
   
     try {
       
-        await axios.post(`/posts/addPoll`, {
+        await axiosInstance.post(`/posts/addPoll`, {
             title,
             // desc: value,
             date: moment(Date.now()).format("YYYY-MM-DD HH:mm:ss"),

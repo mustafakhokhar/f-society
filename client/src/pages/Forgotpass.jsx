@@ -1,8 +1,6 @@
-import axios from "axios";
+import { axiosInstance } from "../config";
 import React, { useState } from "react";
-import { useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
-// import { AuthContext } from "../context/authContext";
 
 const ForgotPassword = () => {
   const [inputs, setInputs] = useState({
@@ -25,7 +23,7 @@ const ForgotPassword = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.post("/auth/Forgotpass", inputs);
+      await axiosInstance.post("/auth/Forgotpass", inputs);
       navigate("/");
     } catch (err) {
       console.log("yessss!!!")

@@ -2,7 +2,7 @@ import React ,  { useContext } from "react";
 import { useEffect } from "react";
 import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
-import axios from "axios";
+import { axiosInstance } from "../config";
 import { AuthContext } from "../context/authContext";
 
 const Home = () => {
@@ -17,7 +17,7 @@ const Home = () => {
     try {
       // post.totalLikes = post.totalLikes + 1
       const post_array = [post , currentUser]
-      const res = await axios.post(`/posts/update_like` , post_array);
+      const res = await axiosInstance.post(`/posts/update_like` , post_array);
     } catch (err){
       console.log("err : " , err)
     }
@@ -30,7 +30,7 @@ const Home = () => {
     try {
       // post.totalDislikes = post.totalDislikes + 1
       const post_array = [post , currentUser]
-      const res = await axios.post(`/posts/update_dislike` , post_array);
+      const res = await axiosInstance.post(`/posts/update_dislike` , post_array);
     } catch (err){
       console.log("err : " , err)
     }
@@ -42,7 +42,7 @@ const Home = () => {
     try {
       // post.totalLikes = post.totalLikes + 1
       const post_array = [post , currentUser]
-      const res = await axios.post(`/posts/update_report_status` , post_array);
+      const res = await axiosInstance.post(`/posts/update_report_status` , post_array);
       set_report_status(res.data.message)
     } catch (err){
       
@@ -56,7 +56,7 @@ const Home = () => {
     const fetchData = async () => {
 
       try {
-        const res = await axios.get(`/posts`);
+        const res = await axiosInstance.get(`/posts`);
         console.log(res.data)
         console.log("yess")
         setPosts(res.data);

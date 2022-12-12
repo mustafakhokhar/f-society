@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
-import axios from "axios";
+import { axiosInstance } from "../config";
 import {Link, useLocation, useNavigate } from "react-router-dom";
 import moment from "moment";
 import { useContext } from "react";
@@ -24,7 +24,7 @@ const Write = () => {
   const handleClick = async (e) => {
     e.preventDefault();
     try {
-        await axios.post(`/posts/`, {
+        await axiosInstance.post(`/posts/`, {
             desc: value,
             date: moment(Date.now()).format("YYYY-MM-DD HH:mm:ss"),
             usersname,
@@ -43,7 +43,7 @@ const Write = () => {
     console.log("yesss",usersname)
     try {
 
-    const res = await axios.get(`/posts/my_posts/${usersname}`);
+    const res = await axiosInstance.get(`/posts/my_posts/${usersname}`);
     set_my_posts(res.data)
     } catch (err){
         console.log(err)
@@ -103,6 +103,14 @@ const Write = () => {
                     }}
                   ></p>
                   {/* <h1 className="view_post_tags">{post.tag1} {post.tag2} {post.tag3}</h1> */}
+                  <h3 className="view_post_approved" >
+                    {(() => {
+                      switch (post.admin_approval_status) {
+                        case 1:   return "APPROVED";
+                        case 0: return "UNAPPROVED";
+                      }
+                    })()}
+                    </h3>
               </div>
               ))}
           </div>

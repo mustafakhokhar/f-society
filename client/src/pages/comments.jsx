@@ -1,14 +1,7 @@
 import React, { useEffect, useState } from "react";
-import Edit from "../img/edit.png";
-import Delete from "../img/delete.png";
-import { Link, useLocation, useNavigate } from "react-router-dom";
-import Menu from "../components/Menu";
-import axios from "axios";
-import moment from "moment";
+import { axiosInstance } from "../config";
 import { useContext } from "react";
 import { AuthContext } from "../context/authContext";
-import DOMPurify from "dompurify";
-
 
 const Comments = (post_id) => {
 
@@ -28,7 +21,7 @@ const Comments = (post_id) => {
           
           const single_cmd_obj = [comment_msg , currentUser ,post_id]
           console.log(single_cmd_obj)
-          const res = await axios.post(`/posts/add_comment` , single_cmd_obj);
+          const res = await axiosInstance.post(`/posts/add_comment` , single_cmd_obj);
         //   set_report_status(res.data.message)
 
         } catch (err){
@@ -48,7 +41,7 @@ const Comments = (post_id) => {
       const fetchData = async () => {
   
         try {
-          const res = await axios.get(`/posts/get_comments/${post_id}`);
+          const res = await axiosInstance.get(`/posts/get_comments/${post_id}`);
           // console.log(res.data)
           set_comment_array(res.data)
           

@@ -33,7 +33,7 @@ export const updateApprovalStatus = (req ,res) =>{
 
 
 export const get_users = (req, res) => {
-  const q =  `Select * from user_info where status = 'writer' and is_account_ban=0 ORDER BY total_reports DESC`;
+  const q =  `Select * from user_info inner join posts on username = writer_id where status = 'writer' and is_account_ban=0 and reportCount > 0 ORDER BY reportCount DESC`;
   db.query(q, (err, data) => {
     if (err) return res.status(500).send(err);
     // console.log(data)
@@ -42,7 +42,7 @@ export const get_users = (req, res) => {
 };
 
 export const ban_users = (req, res) => {
-  console.log("AM HERE")
+  // console.log("AM HERE")
   console.log(req.params.username)
   const q =  `Update user_info set is_account_ban = 1 where username="${req.params.username}"`;
   db.query(q, (err, data) => {

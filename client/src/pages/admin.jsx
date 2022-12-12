@@ -2,7 +2,7 @@ import React ,  { useContext } from "react";
 import { useEffect } from "react";
 import { useState } from "react";
 import { Link, useLocation, useNavigate  } from "react-router-dom";
-import axios from "axios";
+import { axiosInstance } from "../config";
 import { AuthContext } from "../context/authContext";
 
 const Admin = () => {
@@ -15,7 +15,7 @@ const Admin = () => {
   const approval_handler = async(post) => {
     try {
       const post_array = [post , currentUser]
-      const res = await axios.post(`/postsApproval/updateApprovalStatus` , post_array);
+      const res = await axiosInstance.post(`/postsApproval/updateApprovalStatus` , post_array);
       set_approval_status(res.data.message)
     } catch (err){
       console.log(err)
@@ -26,7 +26,7 @@ const Admin = () => {
     const fetchData = async () => {
 
       try {
-        const res = await axios.get(`/postsApproval`);
+        const res = await axiosInstance.get(`/postsApproval`);
         console.log(res.data)
         console.log("yess")
         setPosts(res.data);

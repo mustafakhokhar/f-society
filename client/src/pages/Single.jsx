@@ -3,7 +3,7 @@ import Edit from "../img/edit.png";
 import Delete from "../img/delete.png";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import Menu from "../components/Menu";
-import axios from "axios";
+import { axiosInstance } from "../config";
 import moment from "moment";
 import { useContext } from "react";
 import { AuthContext } from "../context/authContext";
@@ -28,7 +28,7 @@ const Single = () => {
     const fetchData = async () => {
       try {
         // console.log("YESS I M CALLEDDDDDDD")
-        const res = await axios.get(`/posts/${postId}`);
+        const res = await axiosInstance.get(`/posts/${postId}`);
         // console.log(res.data)
         // console.log("POST ID : ", postId)
         // console.log("in fetch data")
@@ -57,7 +57,7 @@ const Single = () => {
     try {
       // post.totalLikes = post.totalLikes + 1
       const post_array = [post , currentUser]
-      const res = await axios.post(`/posts/update_like` , post_array);
+      const res = await axiosInstance.post(`/posts/update_like` , post_array);
     } catch (err){
       console.log("err : " , err)
     }
@@ -70,7 +70,7 @@ const Single = () => {
     try {
       // post.totalDislikes = post.totalDislikes + 1
       const post_array = [post , currentUser]
-      const res = await axios.post(`/posts/update_dislike` , post_array);
+      const res = await axiosInstance.post(`/posts/update_dislike` , post_array);
     } catch (err){
       console.log("err : " , err)
     }
@@ -82,7 +82,7 @@ const Single = () => {
     try {
       // post.totalLikes = post.totalLikes + 1
       const post_array = [post , currentUser]
-      const res = await axios.post(`/posts/update_report_status` , post_array);
+      const res = await axiosInstance.post(`/posts/update_report_status` , post_array);
       set_report_status(res.data.message)
       console.log(post)
     } catch (err){
@@ -100,7 +100,7 @@ const Single = () => {
     try {
       const array= [deletepostid,usersname ]
       console.log("This is the stuff deleting:", array)
-      await axios.post(`/posts/${postId}`,array);
+      await axiosInstance.post(`/posts/${postId}`,array);
       navigate("/")
     } catch (err) {
       console.log("Throwing error")

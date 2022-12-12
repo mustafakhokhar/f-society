@@ -1,13 +1,9 @@
 import React, { useEffect, useState } from "react";
-import Edit from "../img/edit.png";
-import Delete from "../img/delete.png";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import axios from "axios";
-import moment from "moment";
+import { axiosInstance } from "../config";
 import { useContext } from "react";
 import { AuthContext } from "../context/authContext";
 import DOMPurify from "dompurify";
-import Comments from "./comments";
 
 
 
@@ -25,7 +21,7 @@ const SingleAdmin = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const res = await axios.get(`/postsApproval/${postId}`);
+        const res = await axiosInstance.get(`/postsApproval/${postId}`);
         setPost(res.data);
         set_approval_status(res.data.admin_approval_status)
       } catch (err) {
@@ -46,7 +42,7 @@ const SingleAdmin = () => {
       const post_array = [post , currentUser]
       console.log("FUCKIng")
       navigateBack()
-      const res = await axios.post(`/postsApproval/updateApprovalStatus` , post_array);
+      const res = await axiosInstance.post(`/postsApproval/updateApprovalStatus` , post_array);
       console.log("POSTTT:",post)
       console.log("RESSS:",res.data)
     } catch (err){

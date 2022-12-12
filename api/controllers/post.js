@@ -569,7 +569,7 @@ export const view_my_posts = (req , res) =>{
 
 export const getSearch = (req, res) => {
   // const q = req.query.cat
-  const q =  `Select * from posts where tag1 = '${req.params.tag}' or tag2 = '${req.params.tag}' or tag3 = '${req.params.tag}'`;
+  const q =  `Select * from posts where admin_approval_status = 1 and tag1 = '${req.params.tag}' or tag2 = '${req.params.tag}' or tag3 = '${req.params.tag}' `;
     // console.log("yesssssdsdsds\n")
   db.query(q, (err, data) => {
     if (err) return res.status(500).send(err);
@@ -579,7 +579,7 @@ export const getSearch = (req, res) => {
 };
 
 export const getSearchk = (req, res) => {
-  const q =  `Select * from posts where post_content like '%${req.params.word}%'`;
+  const q =  `Select * from posts where admin_approval_status = 1 and post_content like '%${req.params.word}%'`;
   db.query(q, (err, data) => {
     if (err) return res.status(500).send(err);
     // console.log(data)

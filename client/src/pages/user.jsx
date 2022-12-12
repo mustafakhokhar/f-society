@@ -2,7 +2,7 @@ import React from "react";
 import { useEffect } from "react";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import axios from "axios";
+import { axiosInstance } from "../config";
 import { useContext } from "react";
 import { AuthContext } from "../context/authContext";
 
@@ -18,7 +18,7 @@ const Users = () => {
         console.log("THE words are : ")
         try {
 
-        const res = await axios.get(`/postsApproval/users`);
+        const res = await axiosInstance.get(`/postsApproval/users`);
         set_search_array(res.data)
         console.log(res.data)
         } catch (err){
@@ -33,7 +33,7 @@ const Users = () => {
         console.log("THE words are : ")
         try {
         console.log("SENDNG DATA")
-        const res = await axios.post(`/postsApproval/banning/${banned_user}`);
+        const res = await axiosInstance.post(`/postsApproval/banning/${banned_user}`);
         // get_users();
         console.log(res.data)
         } catch (err){
@@ -56,7 +56,7 @@ const Users = () => {
         const fetchData = async () => {
           try {
             // console.log("YESS I M CALLEDDDDDDD")
-            const res = await axios.get(`/postsApproval/users`);
+            const res = await axiosInstance.get(`/postsApproval/users`);
             set_search_array(res.data)
           } catch (err) {
             console.log(err);
@@ -77,7 +77,7 @@ const Users = () => {
                             <strong className="userN">Username: {result.username}</strong> <br/> 
                             <p className="userD"><strong> Fullname: </strong>{result.full_name}</p> <br/> 
                             <p className="userD"><strong> Status: </strong>{result.status}</p> <br/> 
-                            <p className="userD"><strong> Number of reports: </strong>{result.total_reports}</p> <br/> 
+                            <p className="userD"><strong> Number of reports: </strong>{result.reportCount}</p> <br/> 
                             <button className="banUserBut" onClick={event =>handleClick(event, key, search_array)}> <strong>Double Tap = Ban</strong></button>
                         </div>
                         <br/>
